@@ -4,7 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
-const seedAdmin = require('./utils/seedAdmin');
+const seedData = require('./utils/seedData');
 const errorHandler = require('./middleware/errorHandler');
 
 // Load env vars
@@ -13,7 +13,7 @@ dotenv.config();
 // Connect to MongoDB
 connectDB().then(() => {
   // Run seed check after DB connects
-  seedAdmin();
+  seedData();
 });
 
 const app = express();
