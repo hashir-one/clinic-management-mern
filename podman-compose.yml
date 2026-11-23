@@ -34,7 +34,7 @@ services:
     networks:
       - clinic_net
 
-  # 3. React Frontend Container (Serves UI + proxies /api/ internally to backend)
+  # 3. React Frontend Container
   frontend:
     build:
       context: ./frontend
@@ -42,8 +42,8 @@ services:
     container_name: clinic_frontend
     restart: unless-stopped
     ports:
-      # Bound to port 3000 so Nginx Proxy Manager (at 10.88.0.1:3000) can route to it
-      - "3000:80"
+      # Port 3080 to avoid collision with other apps already running on port 3000
+      - "${CLINIC_PORT:-3080}:80"
     depends_on:
       - backend
     networks:
