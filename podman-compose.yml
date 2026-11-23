@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # 1. MongoDB Database Container (Internal only, no host port exposed)
+  # 1. MongoDB Database Container
   mongodb:
     image: docker.io/library/mongo:7.0
     container_name: clinic_mongodb
@@ -14,11 +14,6 @@ services:
       - ./data/mongo:/data/db
     networks:
       - clinic_net
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   # 2. Node.js & Express API (Bound to 127.0.0.1:5000 for Host Nginx)
   backend:
@@ -37,8 +32,7 @@ services:
       INITIAL_ADMIN_EMAIL: ${INITIAL_ADMIN_EMAIL}
       INITIAL_ADMIN_PASSWORD: ${INITIAL_ADMIN_PASSWORD}
     depends_on:
-      mongodb:
-        condition: service_healthy
+      - mongodb
     networks:
       - clinic_net
 

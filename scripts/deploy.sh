@@ -20,11 +20,13 @@ if [ ! -f .env ]; then
 fi
 
 # 4. Pull and build containers with podman-compose
-echo "Building and launching containers via Podman Compose..."
+echo "Launching containers via Podman Compose..."
 if command -v podman-compose &> /dev/null; then
-  podman-compose up -d --build
+  podman-compose down 2>/dev/null || true
+  podman-compose up -d
 elif command -v podman &> /dev/null && podman compose --help &> /dev/null; then
-  podman compose up -d --build
+  podman compose down 2>/dev/null || true
+  podman compose up -d
 else
   echo "Error: Neither 'podman-compose' nor 'podman compose' was found."
   exit 1
@@ -33,4 +35,5 @@ fi
 echo "=== Podman services started successfully! ==="
 echo "Frontend listening on: http://127.0.0.1:3000"
 echo "Backend API listening on: http://127.0.0.1:5000"
-echo "Check container status with: podman ps"
+echo "Checking running containers:"
+podman ps
