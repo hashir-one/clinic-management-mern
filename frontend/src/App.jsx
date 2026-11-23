@@ -8,6 +8,7 @@ import ReceptionDesk from './pages/dashboard/ReceptionDesk';
 import Appointments from './pages/dashboard/Appointments';
 import Patients from './pages/dashboard/Patients';
 import Doctors from './pages/dashboard/Doctors';
+import StaffAccounts from './pages/dashboard/StaffAccounts';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="appointments" element={<Appointments />} />
           <Route path="patients" element={<Patients />} />
           <Route path="doctors" element={<Doctors />} />
+          <Route path="staff" element={<StaffAccounts />} />
         </Route>
       </Route>
 
